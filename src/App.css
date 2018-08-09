@@ -1,8 +1,15 @@
 .App {
+  max-width: 960px;
+  width: 95%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: minmax(70px, auto);
+  grid-gap: 10px;
+  margin: 0 auto;
   text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.App header {
+  grid-column: 1 / 4;
+  background-color: aqua;
 }

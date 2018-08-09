@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
-import classes from './App.css';
+import React, { Component, Fragment } from 'react';
+import classes from "./App.css";
+import Layout from "./containers/Layout/Layout";
+import ShowWeather from './containers/ShowWeather/ShowWeather';
 
 class App extends Component {
   render() {
     return (
       <div className={classes.App}>
-      Burek
+        <Layout>
+          <ShowWeather />
+        </Layout>
       </div>
     );
   }
