@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Day.css"
 
-const day = () => {
+const Day = () => {
 
     return (
         <div className={classes.Day}>
@@ -10,4 +10,4 @@ const day = () => {
     )
 }
 
-export default day;
+export default Day;

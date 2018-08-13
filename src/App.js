@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component} from 'react';
 import classes from "./App.css";
 import Layout from "./containers/Layout/Layout";
 import ShowWeather from './containers/ShowWeather/ShowWeather';
