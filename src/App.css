@@ -23,3 +23,12 @@
   grid-row: 2 / 3;
   justify-self: start;
 }
+
+.App 
+ div:nth-of-type(4),
+ div:nth-of-type(5), 
+ div:nth-of-type(6),
+ div:nth-of-type(7),
+ div:nth-of-type(8) {
+  grid-row: 3 / 4;
+}
