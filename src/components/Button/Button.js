@@ -4,7 +4,7 @@ import classes from "./Button.css"
 const Button = (props) => {
 
     return (
-        <button className={classes.Button} onClick={props.selectDays}>{props.buttonNumber}</button>
+        <button className={classes.Button} onClick={props.search}>{props.buttonName}</button>
     )
 }
 
