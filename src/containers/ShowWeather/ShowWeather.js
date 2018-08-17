@@ -19,10 +19,11 @@ class ShowWeather extends Component {
             .catch(error => {
                 console.log(error);
             })
-    }
-    
+    }    
 
     render() {
+
+        console.log(this.state.forecast);
 
         let city;
         let dailyForecast;

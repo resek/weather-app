@@ -1,15 +1,15 @@
 import React from "react";
-import classes from "./Day.css"
+
+import classes from "./Day.css";
 
 const Day = (props) => {
 
-    console.log(props);
     return (
         <div className={classes.Day}>
             <p>{props.date}</p>
             <p>{props.temp}C</p>
-            <p>{props.description}C</p>
-            <img src={"http://openweathermap.org/img/w/" + props.iconCode + ".png"}/>
+            <p>{props.description}</p>
+            <img src={require("../../assets/weatherIcons/" + props.iconCode + ".png")} alt="weatherIcon" />
         </div>      
     )
 }
