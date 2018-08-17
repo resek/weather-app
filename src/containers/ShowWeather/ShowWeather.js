@@ -8,37 +8,45 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 class ShowWeather extends Component {
 
     state = {
-        forecast: null,
+        allForecast: null,
+        selectedForecasts: null,
     }
 
     searchAPI = () => {
+
+        let selectedDaysArr = [];        
+
         axios.get("http://api.openweathermap.org/data/2.5/forecast?q=Ljubljana&APPID=84a72d1485afbd8a7c20dba340a522b5&units=metric")
             .then(response => {
-                this.setState({forecast: response.data});
+                for (var i = 0; i < response.data.list.length; i +=8) {
+                    selectedDaysArr.push(response.data.list[i]);
+                }
+                this.setState({allForecast: response.data, selectedForecasts: selectedDaysArr})
             })
             .catch(error => {
                 console.log(error);
-            })
-    }    
+            })        
+    }
 
     render() {
 
-        console.log(this.state.forecast);
-
         let city;
-        let dailyForecast;
-        let arr = [];
+        let selectedDays;
+        
+        if (this.state.allForecast) {
+            city = this.state.allForecast.city.name;
+        }
 
-        if (this.state.forecast != null) {
-            city = this.state.forecast.city.name;
-        }        
+        if (this.state.selectedForecasts) {
 
-        if (this.state.forecast != null) {
-            dailyForecast = this.state.forecast.list;
-            for (var i = 1; i < dailyForecast.length; i +=8) {
-                arr.push(dailyForecast[i]);
-            }
-        console.log(arr);    
+            selectedDays = this.state.selectedForecasts.map((day, i) => {
+                return <Day 
+                    date={day.dt_txt}
+                    temp={day.main.temp.toFixed()}
+                    description={day.weather[0].description}
+                    iconCode={day.weather[0].icon}
+                    key={i} />
+            });
         }        
 
         return (
@@ -53,15 +61,8 @@ class ShowWeather extends Component {
                 </div>
                 <div>
                     {city}
-                </div>               
-                {arr.map((day, i) => (
-                    <Day 
-                        date={day.dt_txt}
-                        temp={day.main.temp.toFixed()}
-                        description={day.weather[0].description}
-                        iconCode={day.weather[0].icon}
-                        key={i} />
-                ))}
+                </div>
+                {selectedDays}             
             </Fragment>
         )            
     }
