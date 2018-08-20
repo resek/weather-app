@@ -2,33 +2,9 @@
   max-width: 960px;
   width: 90%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: minmax(80px, auto);
   grid-gap: 10px;
   margin: 20px auto;
   text-align: center;
-}
-
-.App div:first-of-type {
-  grid-column: 1 / 3;
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr
-}
-
-.App div:nth-of-type(2) {
-  align-self: center;
-}
-
-.App div:nth-of-type(3) {
-  grid-row: 2 / 3;
-  justify-self: start;
-}
-
-.App 
- div:nth-of-type(4),
- div:nth-of-type(5), 
- div:nth-of-type(6),
- div:nth-of-type(7),
- div:nth-of-type(8) {
-  grid-row: 3 / 4;
 }

@@ -1,4 +1,8 @@
 .Button {
+  align-self: center;
+}
+
+.Button button {
     width: 70px;
     height: 40px;
   }

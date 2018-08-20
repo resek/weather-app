@@ -4,7 +4,9 @@ import classes from "./Button.css"
 const Button = (props) => {
 
     return (
-        <button className={classes.Button} onClick={props.search}>{props.buttonName}</button>
+        <div className={classes.Button}>
+            <button onClick={props.search}>{props.buttonName}</button>
+        </div>
     )
 }
 
