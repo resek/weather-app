@@ -1,9 +1,11 @@
 .Day {
-    border:1px solid black;
+    border-bottom: thin solid lightgray;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    padding: 5px;
+    grid-template-columns: repeat(5, 1fr);
 }
 
-.Day img {
+.Day img{
     height: 100%;
+    justify-self: center;
 }

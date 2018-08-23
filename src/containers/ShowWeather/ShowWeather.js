@@ -49,6 +49,7 @@ class ShowWeather extends Component {
                     temp={day.main.temp.toFixed()}
                     description={day.weather[0].description}
                     iconCode={day.weather[0].icon}
+                    wind={day.wind.speed}
                     key={i} />
             ))
         }

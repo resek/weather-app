@@ -2,5 +2,4 @@
     grid-column: 1 / 7;
     grid-row-start: 5;
     display: grid;
-    grid-gap: 10px;
   }

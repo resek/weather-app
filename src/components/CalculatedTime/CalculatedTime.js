@@ -7,9 +7,16 @@ const CalculatedTime = (props) => {
     
     const currentDay = dateObject.getDay();
     const hour = dateObject.getHours();
+    
+    let time;
+    if (hour < 10) {
+        time = `0${hour}.00`;
+    } else {
+        time = `${hour}.00`;
+    }
 
     return (
-        <p><b>{hour + ":00"}</b> - {daysArr[currentDay]}</p>                
+        <p><b>{time}</b> - {daysArr[currentDay]}</p>                
     )
 }
 

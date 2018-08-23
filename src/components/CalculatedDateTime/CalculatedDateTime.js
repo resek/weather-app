@@ -11,8 +11,15 @@ const CalculatedDateTime = (props) => {
     const currentDate = dateObject.getDate();
     const currentMonth = dateObject.getMonth();
 
+    let time;
+    if (hour < 10) {
+        time = `0${hour}.00`;
+    } else {
+        time = `${hour}.00`;
+    }
+
     return (
-        <p><b>{hour + ":00"}</b> - {`${daysArr[currentDay]} ${currentDate}. ${monthsArr[currentMonth]}`}</p>                
+        <p><b>{time}</b> - {`${daysArr[currentDay]} ${currentDate}. ${monthsArr[currentMonth]}`}</p>                
     )
 }
 
