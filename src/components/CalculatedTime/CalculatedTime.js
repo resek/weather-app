@@ -16,7 +16,7 @@ const CalculatedTime = (props) => {
     }
 
     return (
-        <p><b>{time}</b> - {daysArr[currentDay]}</p>                
+        <p>{daysArr[currentDay]} - <b>{time}</b></p>                
     )
 }
 
