@@ -28,6 +28,7 @@ class ShowWeather extends Component {
 
         let currentWeather;
         let days;
+        const pickedDaysArr = [];
 
         console.log(this.state.allForecast);
         
@@ -35,8 +36,14 @@ class ShowWeather extends Component {
 
             currentWeather = <CurrentWeather data={this.state.allForecast} />
             
+            
+            const daysArr = this.state.allForecast.list;
+            
+            for (var i = 1; i < daysArr.length; i+=2) {
+                pickedDaysArr.push(daysArr[i]);
+            }          
 
-            days = this.state.allForecast.list.map((day, i) => (
+            days = pickedDaysArr.map((day, i) => (
                 <Day 
                     date={day.dt_txt}
                     temp={day.main.temp.toFixed()}
