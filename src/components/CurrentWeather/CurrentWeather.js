@@ -13,7 +13,7 @@ const CurrentWeather = (props) => {
             <p>{currentDayData.main.temp.toFixed()}&#8451;</p>
             <img src={require("../../assets/weatherIcons/" + currentDayData.weather[0].icon + ".png")} alt="weatherIcon" />
             <p>{currentDayData.weather[0].description}</p>
-            <p>{Math.round(currentDayData.wind.speed)} m/s</p>            
+            <p>{Math.round(currentDayData.wind.speed)} m/s</p>
         </div>              
     )
 }

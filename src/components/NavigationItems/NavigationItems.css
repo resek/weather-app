@@ -1,0 +1,13 @@
+.NavigationItems {
+    align-self: center;
+}
+
+.NavigationItems a {
+    text-decoration: none;
+}
+
+.NavigationItems a:hover,
+.NavigationItems a:active,
+.NavigationItems a.active {
+    color: red;
+}

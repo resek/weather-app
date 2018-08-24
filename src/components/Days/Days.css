@@ -1,5 +1,5 @@
-.FiveDays {
+.Days {
     grid-column: 1 / 7;
-    grid-row-start: 5;
+    grid-row-start: 2;
     display: grid;
   }

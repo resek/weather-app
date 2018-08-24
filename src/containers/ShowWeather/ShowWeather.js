@@ -1,11 +1,12 @@
 import React, {Component, Fragment} from 'react';
+import {Route} from "react-router-dom";
 import axios from "axios";
-import classes from "./ShowWeather.css";
 
-import Day from "../../components/Day/Day";
+import Days from "../../components/Days/Days";
 import Button from "../../components/Button/Button";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import CurrentWeather from "../../components/CurrentWeather/CurrentWeather";
+import NavigationItems from "../../components/NavigationItems/NavigationItems";
 
 class ShowWeather extends Component {
 
@@ -25,43 +26,24 @@ class ShowWeather extends Component {
     }
 
     render() {
-
-        let currentWeather;
-        let days;
-        const pickedDaysArr = [];
-
-        console.log(this.state.allForecast);
         
+        let dataComponents;
+
         if (this.state.allForecast) {
-
-            currentWeather = <CurrentWeather data={this.state.allForecast} />
-            
-            
-            const daysArr = this.state.allForecast.list;
-            
-            for (var i = 1; i < daysArr.length; i+=2) {
-                pickedDaysArr.push(daysArr[i]);
-            }          
-
-            days = pickedDaysArr.map((day, i) => (
-                <Day 
-                    date={day.dt_txt}
-                    temp={day.main.temp.toFixed()}
-                    description={day.weather[0].description}
-                    iconCode={day.weather[0].icon}
-                    wind={day.wind.speed}
-                    key={i} />
-            ))
+            dataComponents = (
+                <Fragment>
+                    <NavigationItems />                    
+                    <Route path="/days" render={() => <Days data={this.state.allForecast} /> }/>
+                    <Route path="/" exact render={() => <CurrentWeather data={this.state.allForecast} />}/>
+                </Fragment>
+            )
         }
 
         return (
             <Fragment>
                 <SearchBar />    
                 <Button buttonName="Search" search={this.searchAPI} />
-                {currentWeather}
-                <div className={classes.FiveDays}>
-                    {days}
-                </div>
+                {dataComponents}         
             </Fragment>
         )            
     }
