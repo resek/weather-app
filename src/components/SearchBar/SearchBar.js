@@ -5,7 +5,7 @@ const SearchBar = (props) => {
 
     return (
         <div className={classes.SearchBar}>
-            <input type="text" placeholder="search location"></input>
+            <input type="text" onKeyUp={props.updateSearch} placeholder="Search for city"></input>
         </div>
     )
 }

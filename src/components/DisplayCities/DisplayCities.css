@@ -1,0 +1,8 @@
+.Cities {
+    grid-column: 1 / 7;
+    grid-row: 2 / 3;   
+}
+
+.Cities a {
+    margin: 0 20px;
+}
