@@ -2,31 +2,29 @@ import React from "react";
 import classes from "./Days.css"
 import Day from "./Day/Day";
 
-const Days = (props) => {
+const Days = (props) => {        
 
-    let days;
-    const pickedDaysArr = [];     
-    const daysArr = props.data.list;
-        
-        for (var i = 1; i < daysArr.length; i+=2) {
-            pickedDaysArr.push(daysArr[i]);
-        }          
-
-        days = pickedDaysArr.map((day, i) => (
+    let days = props.data.map((day, i) => (
+        <div className={classes.DayDiv}>
             <Day 
-                date={day.dt_txt}
-                temp={day.main.temp.toFixed()}
-                description={day.weather[0].description}
-                iconCode={day.weather[0].icon}
-                wind={day.wind.speed}
+                temp={day.Temperature.Maximum.Value}
+                description={day.Day.ShortPhrase}
+                iconCode={day.Day.Icon}
+                wind={day.Day.Wind.Speed.Value}
                 key={i} />
-        ));
+            <Day 
+                temp={day.Temperature.Minimum.Value}
+                description={day.Night.ShortPhrase}
+                iconCode={day.Night.Icon}
+                wind={day.Night.Wind.Speed.Value}
+                key={i} />
+        </div>
+    ));
 
     return (
         <div className={classes.Days}>
             {days}
-        </div>
-             
+        </div>             
     )
 }
 

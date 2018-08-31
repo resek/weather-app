@@ -6,7 +6,7 @@ const DisplayCities = (props) => {
     return (
         <div className={classes.Cities}>
             {props.foundCities.map(city => {
-                return <button key={city.id} id={city.id} onClick={props.click}>{city.name} {city.country}</button>
+                return <button key={city.Key} id={city.Key} name={city.LocalizedName} onClick={props.click}>{city.LocalizedName}, {city.Country.ID}</button>
             })}
         </div>     
     )

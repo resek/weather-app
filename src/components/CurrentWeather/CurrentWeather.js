@@ -4,16 +4,15 @@ import CalculatedDateTime from "../CalculatedDateTime/CalculatedDateTime";
 
 const CurrentWeather = (props) => {
 
-    const currentDayData = props.data.list[0];
-
     return (
         <div className={classes.CurrentWeather}>
-            <p>Current weather for <b>{props.data.city.name}</b></p>
-            <CalculatedDateTime dateTxt={currentDayData.dt_txt}/>
-            <p>{currentDayData.main.temp.toFixed()}&#8451;</p>
-            <img src={require("../../assets/weatherIcons/" + currentDayData.weather[0].icon + ".png")} alt="weatherIcon" />
-            <p>{currentDayData.weather[0].description}</p>
-            <p>{Math.round(currentDayData.wind.speed)} m/s</p>
+            <p>Current weather for <b>{props.cityName}</b></p>
+            <CalculatedDateTime dateTxt={props.data.LocalObservationDateTime}/>
+            <p>{props.data.Temperature.Metric.Value}&#8451;</p>
+            <img src={require("../../assets/weatherIcons/" + props.data.WeatherIcon + ".png")} alt="weatherIcon" />
+            <p>{props.data.WeatherText}</p>
+            <p>Wind: {props.data.Wind.Speed.Metric.Value} km/h</p>
+            <p>Precipitation in last 3 hours: {props.data.PrecipitationSummary.Past3Hours.Metric.Value} mm</p>
         </div>              
     )
 }

@@ -11,44 +11,51 @@ import DisplayCities from "../../components/DisplayCities/DisplayCities";
 class ShowWeather extends Component {
 
     state = {
-        weatherData: null,
-        citiesFromDB: null,
+        currentConditions: null,
+        forecast5DaysArr: null,
+        foundCitiesArr: null,
+        chosenCity: null,
     }
 
     searchForCities = event => {
 
-        //empty input = do not show cities
-        if (event.target.value.length > 0) {            
-            
-            //firs word in a string uppercase
-            let text = event.target.value.toLowerCase()
-            .split(' ')
-            .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
-            .join(' ');
+        //empty  cities input
+        if (event.target.value.length > 0) {
 
-            //firebase filtering data by name
-            axios.get(`https://weather-app-df6c0.firebaseio.com/citiesList.json?orderBy="name"&startAt="${text}"&endAt="${text}\uf8ff"&limitToFirst=5&print=pretty`)
+            let inputText = event.target.value.toLowerCase()
+
+            //accweather autocomplete location API
+            axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=Lfe0VvqU7MpLLvDCVWwgpIoPMre88GVq%20&q=${inputText}`)
             .then(response => {
-                let citiesArr = Object.values(response.data);
-                this.setState({citiesFromDB: citiesArr});
+                this.setState({foundCitiesArr: response.data});
             })
             .catch(error => {
                 console.log(error);
             })
         } else {
-            this.setState({citiesFromDB: null});
+            this.setState({foundCitiesArr: null});
         }        
     }
 
     getWeatherData = (event) => {
+        
         let cityId = event.target.id;
-        axios.get(`http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&APPID=84a72d1485afbd8a7c20dba340a522b5&units=metric`)
-            .then(response => {                
-                this.setState({weatherData: response.data})
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        let cityName = event.target.name;
+
+        axios.all([
+            axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${cityId}?apikey=Lfe0VvqU7MpLLvDCVWwgpIoPMre88GVq%20&details=true`),
+            axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityId}?apikey=Lfe0VvqU7MpLLvDCVWwgpIoPMre88GVq%20&details=true&metric=true`)
+        ])
+        .then(response => {
+            console.log(response[1].data.DailyForecasts);                
+            this.setState({
+                currentConditions: response[0].data[0],
+                forecast5DaysArr: response[1].data.DailyForecasts, 
+                chosenCity: cityName })
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
 
     render() {
@@ -56,21 +63,21 @@ class ShowWeather extends Component {
         let dataComponents;
         let displayCities;
 
-        if (this.state.weatherData) {
+        if (this.state.currentConditions) {
             dataComponents = (
                 <Fragment>
                     <NavigationItems />                    
-                    <Route path="/days" render={() => <Days data={this.state.weatherData} /> }/>
-                    <Route path="/" exact render={() => <CurrentWeather data={this.state.weatherData} />}/>
+                    <Route path="/days" render={() => <Days data={this.state.forecast5DaysArr} /> }/>
+                    <Route path="/" exact render={() => <CurrentWeather cityName={this.state.chosenCity} data={this.state.currentConditions} />}/>
                 </Fragment>
             )
         }
 
-        if (this.state.citiesFromDB) {
+        if (this.state.foundCitiesArr) {
             displayCities = 
                 <DisplayCities 
                     click={(event) => this.getWeatherData(event)} 
-                    foundCities={this.state.citiesFromDB} /> 
+                    foundCities={this.state.foundCitiesArr} /> 
         }
 
         return (
