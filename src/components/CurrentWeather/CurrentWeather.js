@@ -7,7 +7,7 @@ const CurrentWeather = (props) => {
     return (
         <div className={classes.CurrentWeather}>
             <p>Current weather for <b>{props.cityName}</b></p>
-            <CalculatedDateTime dateTxt={props.data.LocalObservationDateTime}/>
+            <CalculatedDateTime dateTxt={props.data.LocalObservationDateTime.substring(0, 19)}/>
             <p>{props.data.Temperature.Metric.Value}&#8451;</p>
             <img src={require("../../assets/weatherIcons/" + props.data.WeatherIcon + ".png")} alt="weatherIcon" />
             <p>{props.data.WeatherText}</p>
