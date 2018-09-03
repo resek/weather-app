@@ -28,6 +28,7 @@ const Days = (props) => {
 
     return (
         <div className={classes.Days}>
+            <p>5 days forecast for <b>{props.cityName}</b></p>
             {days}
         </div>             
     )

@@ -7,6 +7,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import CurrentWeather from "../../components/CurrentWeather/CurrentWeather";
 import NavigationItems from "../../components/NavigationItems/NavigationItems";
 import DisplayCities from "../../components/DisplayCities/DisplayCities";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 class ShowWeather extends Component {
 
@@ -15,6 +16,7 @@ class ShowWeather extends Component {
         forecast5DaysArr: null,
         foundCitiesArr: null,
         chosenCity: null,
+        loading: false,
     }
 
     searchForCities = event => {
@@ -22,10 +24,10 @@ class ShowWeather extends Component {
         //empty  cities input
         if (event.target.value.length > 0) {
 
-            let inputText = event.target.value.toLowerCase()
+            let inputText = event.target.value.toLowerCase();
 
             //accweather autocomplete location API
-            axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=Lfe0VvqU7MpLLvDCVWwgpIoPMre88GVq%20&q=${inputText}`)
+            axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&q=${inputText}`)
             .then(response => {
                 this.setState({foundCitiesArr: response.data});
             })
@@ -42,20 +44,26 @@ class ShowWeather extends Component {
         let cityId = event.target.id;
         let cityName = event.target.name;
 
+        this.setState({foundCitiesArr: null, loading: true});
+
         axios.all([
-            axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${cityId}?apikey=Lfe0VvqU7MpLLvDCVWwgpIoPMre88GVq%20&details=true`),
-            axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityId}?apikey=Lfe0VvqU7MpLLvDCVWwgpIoPMre88GVq%20&details=true&metric=true`)
+            axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${cityId}?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&details=true`),
+            axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityId}?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&details=true&metric=true`)
         ])
-        .then(response => {
-            console.log(response[1].data.DailyForecasts);                
+        .then(response => {                
             this.setState({
                 currentConditions: response[0].data[0],
                 forecast5DaysArr: response[1].data.DailyForecasts, 
-                chosenCity: cityName })
+                chosenCity: cityName,
+                loading: false}) 
         })
         .catch(error => {
             console.log(error);
         })
+    }
+
+    clearSearchBar = (event) => {
+        event.target.value = "";
     }
 
     render() {
@@ -63,12 +71,22 @@ class ShowWeather extends Component {
         let dataComponents;
         let displayCities;
 
-        if (this.state.currentConditions) {
+        if (this.state.loading) {
+            dataComponents = <Spinner />;
+        }
+
+        if (this.state.currentConditions && this.state.forecast5DaysArr) {
             dataComponents = (
                 <Fragment>
                     <NavigationItems />                    
-                    <Route path="/days" render={() => <Days data={this.state.forecast5DaysArr} /> }/>
-                    <Route path="/" exact render={() => <CurrentWeather cityName={this.state.chosenCity} data={this.state.currentConditions} />}/>
+                    <Route path="/days" render={() => 
+                        <Days 
+                            data={this.state.forecast5DaysArr} 
+                            cityName={this.state.chosenCity} /> }/>
+                    <Route path="/" exact render={() => 
+                        <CurrentWeather 
+                            cityName={this.state.chosenCity} 
+                            data={this.state.currentConditions} />}/>
                 </Fragment>
             )
         }
@@ -82,7 +100,9 @@ class ShowWeather extends Component {
 
         return (
             <Fragment>
-                <SearchBar updateSearch={(event) => this.searchForCities(event)} />
+                <SearchBar 
+                    updateSearch={(event) => this.searchForCities(event)} 
+                    clearSearch={(event) => this.clearSearchBar(event)} />
                 {displayCities}
                 {dataComponents}
             </Fragment>

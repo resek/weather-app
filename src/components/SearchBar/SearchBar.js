@@ -5,7 +5,12 @@ const SearchBar = (props) => {
 
     return (
         <div className={classes.SearchBar}>
-            <input type="text" onKeyUp={props.updateSearch} placeholder="Search for city"></input>
+            <input 
+                type="text" 
+                onBlur={props.clearSearch} 
+                onKeyUp={props.updateSearch} 
+                placeholder="Search for city">
+            </input>
         </div>
     )
 }
