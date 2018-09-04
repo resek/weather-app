@@ -24,10 +24,10 @@ class ShowWeather extends Component {
         //empty  cities input
         if (event.target.value.length > 0) {
 
-            let inputText = event.target.value.toLowerCase();
+            const inputText = event.target.value.toLowerCase();
 
             //accweather autocomplete location API
-            axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&q=${inputText}`)
+            axios.get("https://weather-app-9d9b0.firebaseio.com/autocomplete.json")
             .then(response => {
                 this.setState({foundCitiesArr: response.data});
             })
@@ -41,14 +41,18 @@ class ShowWeather extends Component {
 
     getWeatherData = (event) => {
         
-        let cityId = event.target.id;
-        let cityName = event.target.name;
+        const cityId = event.target.id;
+        const cityName = event.target.name
 
-        this.setState({foundCitiesArr: null, loading: true});
+        this.setState({
+            foundCitiesArr: null, 
+            loading: true,
+            currentConditions: null,
+            forecast5DaysArr: null });
 
         axios.all([
-            axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${cityId}?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&details=true`),
-            axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityId}?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&details=true&metric=true`)
+            axios.get("https://weather-app-9d9b0.firebaseio.com/current.json"),
+            axios.get("https://weather-app-9d9b0.firebaseio.com/forecast.json")
         ])
         .then(response => {                
             this.setState({

@@ -6,7 +6,7 @@ import CalculatedDateTime from "../CalculatedDateTime/CalculatedDateTime";
 
 const Days = (props) => {
 
-    let days = props.data.map((day, i) => (
+    const days = props.data.map((day, i) => (
         <div key={i + "dayBlock"} className={classes.DayBlock}>
             <CalculatedDateTime dateTxt={day.Date.substring(0, 10)}/>
             <PartOfDay
