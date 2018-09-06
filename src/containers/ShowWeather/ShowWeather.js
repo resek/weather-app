@@ -59,7 +59,8 @@ class ShowWeather extends Component {
                 currentConditions: response[0].data[0],
                 forecast5DaysArr: response[1].data.DailyForecasts, 
                 chosenCity: cityName,
-                loading: false}) 
+                loading: false
+            }) 
         })
         .catch(error => {
             console.log(error);
