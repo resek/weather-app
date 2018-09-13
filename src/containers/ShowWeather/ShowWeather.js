@@ -2,42 +2,41 @@ import React, {Component, Fragment} from 'react';
 import {Route} from "react-router-dom";
 import axios from "axios";
 import Select from 'react-select';
-import classes from "./ShowWeather.css"
+import classes from "./ShowWeather.css";
 
 import Days from "../../components/Days/Days";
 import CurrentWeather from "../../components/CurrentWeather/CurrentWeather";
 import NavigationItems from "../../components/NavigationItems/NavigationItems";
-import Spinner from "../../components/UI/Spinner/Spinner";
+import Spinner from "../../components/UI/Spinner/Spinner";  
 
 class ShowWeather extends Component {
 
-    state = {
+    state = {       
         currentConditions: null,
         forecast5DaysArr: null,
         chosenCity: null,
         spinnerLoading: false,
-        options: [],
-        openMenuOnClick: false,
+        cityOptions: [],
         selectLoading: false,
     }
 
-    searchForCities = (input, change) => {
+    searchForCities = (input, change) => { 
+
+        this.setState({cityOptions: []});
 
         if (change.action === "input-change" && input.length > 0) {
-            
+
             this.setState({selectLoading: true})
             const inputText = input.toLowerCase();
-    
+
             //accweather autocomplete location API
-            axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&q=${inputText}`)
+            axios.get("https://weather-app-9d9b0.firebaseio.com/autocomplete.json")
             .then(response => {
-                this.setState({options: response.data, selectLoading: false}) 
+                this.setState({cityOptions: response.data, selectLoading: false}); 
             })
             .catch(error => {
                 console.log(error);
             })
-        } else {
-            this.setState({options: []});
         }
     }
 
@@ -49,22 +48,21 @@ class ShowWeather extends Component {
             const cityName = value.label;
 
             this.setState({
-                options: [], 
                 spinnerLoading: true,
                 currentConditions: null,
                 forecast5DaysArr: null });
             
             //get weather data for choosen city
             axios.all([
-                axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${cityId}?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&details=true`),
-                axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityId}?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&details=true&metric=true`)
+                axios.get("https://weather-app-9d9b0.firebaseio.com/current.json"),
+                axios.get("https://weather-app-9d9b0.firebaseio.com/forecast.json")
             ])
             .then(response => {                
                 this.setState({
                     currentConditions: response[0].data[0],
                     forecast5DaysArr: response[1].data.DailyForecasts, 
                     chosenCity: cityName,
-                    spinnerLoading: false
+                    spinnerLoading: false,
                 }) 
             })
             .catch(error => {
@@ -83,14 +81,12 @@ class ShowWeather extends Component {
         }
 
         //cities recommendations for select menu
-        if (this.state.options.length > 0) {
-            cities = this.state.options.map (city => {
-                return {
-                    label: city.LocalizedName + ", " + city.AdministrativeArea.ID + ", " + city.Country.LocalizedName,
-                    key: city.Key,
-                }
-            })
-        }
+        cities = this.state.cityOptions.map(city => {
+            return {
+                label: city.LocalizedName + ", " + city.AdministrativeArea.ID + ", " + city.Country.LocalizedName,
+                key: city.Key,
+            }
+        })
 
         //weather data for selected city
         if (this.state.currentConditions && this.state.forecast5DaysArr) {
@@ -113,12 +109,14 @@ class ShowWeather extends Component {
             <Fragment>
                 <div className={classes.Select}>
                     <Select
+                        controlShouldRenderValue={false}
                         isLoading={this.state.selectLoading}
                         openMenuOnClick={false}
                         maxMenuHeight={400}
                         blurInputOnSelect={true}
                         placeholder="Search for city"        
                         options={cities}
+                        isOptionSelected={() => {false}}
                         onChange={this.getWeatherData}
                         onInputChange={this.searchForCities} />
                 </div>
