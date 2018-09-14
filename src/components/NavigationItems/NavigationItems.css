@@ -1,13 +1,26 @@
 .NavigationItems {
+    justify-self: center;
     align-self: center;
 }
 
 .NavigationItems a {
     text-decoration: none;
+    border-radius: 4px;
+    border: 2px solid #253858;
+    padding: 7px;
+    cursor:pointer;
+    display: inline-block;
+    width: 80px;
+    color: #253858;
+    font-weight: bold;
+    transition: border 0.1s, 
 }
 
 .NavigationItems a:hover,
-.NavigationItems a:active,
-.NavigationItems a.active {
-    color: red;
+.NavigationItems a:active {
+    border: 3px solid #253858;
+}
+
+.NavigationItems .active {
+    color: #2684FF;
 }

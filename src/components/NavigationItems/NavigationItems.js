@@ -7,10 +7,10 @@ const NavigationItems = () => {
     return (
         <Fragment>
             <div className={classes.NavigationItems}>
-                <NavLink to="/" exact activeClassName={classes.active}>Current Weather</NavLink> 
+                <NavLink to="/" exact activeClassName={classes.active}>Now</NavLink> 
             </div>
             <div className={classes.NavigationItems}>
-                <NavLink to="/days" activeClassName={classes.active}>5days</NavLink>   
+                <NavLink to="/days" activeClassName={classes.active}>5 days</NavLink>   
             </div>            
         </Fragment>             
     )

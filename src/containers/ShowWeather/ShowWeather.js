@@ -7,7 +7,7 @@ import classes from "./ShowWeather.css";
 import Days from "../../components/Days/Days";
 import CurrentWeather from "../../components/CurrentWeather/CurrentWeather";
 import NavigationItems from "../../components/NavigationItems/NavigationItems";
-import Spinner from "../../components/UI/Spinner/Spinner";  
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 class ShowWeather extends Component {
 
@@ -18,7 +18,7 @@ class ShowWeather extends Component {
         spinnerLoading: false,
         cityOptions: [],
         selectLoading: false,
-    }
+    }    
 
     searchForCities = (input, change) => { 
 
@@ -118,7 +118,8 @@ class ShowWeather extends Component {
                         options={cities}
                         isOptionSelected={() => {false}}
                         onChange={this.getWeatherData}
-                        onInputChange={this.searchForCities} />
+                        onInputChange={this.searchForCities}
+                    />
                 </div>
                 {dataComponents}
             </Fragment>
