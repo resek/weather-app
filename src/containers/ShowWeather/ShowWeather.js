@@ -9,6 +9,16 @@ import CurrentWeather from "../../components/CurrentWeather/CurrentWeather";
 import NavigationItems from "../../components/NavigationItems/NavigationItems";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
+const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      border: state.isFocused ? '2px solid #2684FF' : '2px solid #253858',
+      '&:hover': {
+        border: state.isFocused ? '2px solid #2684FF' : '3px solid #253858',
+      }      
+    }),
+}
+
 class ShowWeather extends Component {
 
     state = {       
@@ -109,6 +119,7 @@ class ShowWeather extends Component {
             <Fragment>
                 <div className={classes.Select}>
                     <Select
+                        styles={customStyles}
                         controlShouldRenderValue={false}
                         isLoading={this.state.selectLoading}
                         openMenuOnClick={false}

@@ -1,13 +1,8 @@
-.NavigationItems {
-    justify-self: center;
-    align-self: center;
-}
-
 .NavigationItems a {
     text-decoration: none;
     border-radius: 4px;
     border: 2px solid #253858;
-    padding: 7px;
+    padding: 8px;
     cursor:pointer;
     display: inline-block;
     width: 80px;
