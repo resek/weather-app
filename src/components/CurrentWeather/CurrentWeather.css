@@ -5,13 +5,12 @@
 
 .CurrentWeather img {
     height: 20%;
-    width: 20%;
-    margin: 15px 0;
+    width: 23%;
 }
 
 .CityName {
     font-size: 120%;
-    margin-top: 35px;
+    margin: 35px 0;
 }
 
 .TempText {

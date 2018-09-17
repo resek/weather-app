@@ -20,7 +20,7 @@ const CalculatedDateTime = (props) => {
     }
 
     return (
-    <p>({`${daysArr[currentDay]} ${currentDate}. ${monthsArr[currentMonth]}${time}`})</p>                
+    <p>{`${daysArr[currentDay]} ${currentDate}. ${monthsArr[currentMonth]}${time}`}</p>                
     )
 }
 

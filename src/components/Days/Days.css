@@ -2,3 +2,20 @@
     grid-column: 1 / 7;
     grid-row-start: 2;
   }
+
+  .Days div:last-child {
+    margin-bottom: 50px;
+  }
+
+.DayBlock {
+  margin-top: 70px;
+}
+
+.DayBlock > p {
+  font-weight: bold;
+}
+
+.CityName {
+    font-size: 120%;
+    margin-top: 35px;
+}

@@ -1,8 +1,9 @@
 .Day {
     border-bottom: thin solid lightgray;
     display: grid;
-    padding: 5px;
+    align-items: center;
     grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: minmax(70px, auto)
 }
 
 .Day img{

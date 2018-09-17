@@ -12,7 +12,7 @@ const Days = (props) => {
             <PartOfDay
                 partOfDay="Day" 
                 temp={day.Temperature.Maximum.Value}
-                description={day.Day.ShortPhrase}
+                description={day.Day.IconPhrase}
                 iconCode={day.Day.Icon}
                 wind={day.Day.Wind.Speed.Value}
                 key={i + "d"} />
@@ -28,7 +28,7 @@ const Days = (props) => {
 
     return (
         <div className={classes.Days}>
-            <p>5 days forecast for <b>{props.cityName}</b></p>
+            <p className={classes.CityName}>5 days forecast for <b>{props.cityName}</b></p>
             {days}
         </div>             
     )
