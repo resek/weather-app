@@ -19,3 +19,9 @@
     font-size: 120%;
     margin-top: 35px;
 }
+
+@media (max-width: 600px) {    
+  .Days {
+      grid-row-start: 3;
+  }
+}

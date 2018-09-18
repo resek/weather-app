@@ -3,3 +3,16 @@
     text-align: left;
     align-self: center;
 }
+
+@media (max-width: 960px) {
+    .Select {
+        grid-column: 1 / 4;
+    }
+}
+
+@media (max-width: 600px) {
+    .Select {
+        grid-column: 2 / 6;
+    }
+}
+
