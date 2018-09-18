@@ -1,6 +1,7 @@
 .Select {
     grid-column: 2 / 4;
     text-align: left;
+    -ms-flex-item-align: center;
     align-self: center;
 }
 

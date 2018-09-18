@@ -11,7 +11,7 @@ const CurrentWeather = (props) => {
             <img src={require("../../assets/weatherIcons/" + props.data.WeatherIcon + ".png")} alt="weatherIcon" />
             <div>
                 <p className={classes.TempText}>{props.data.Temperature.Metric.Value}&#8451; &nbsp;-</p>
-                <p className={classes.TempText}>&nbsp;&nbsp;{props.data.WeatherText.toLowerCase()}</p>
+                <p className={classes.TempText}>&nbsp;&nbsp;{props.data.WeatherText}</p>
             </div>
             <p>Wind: {props.data.Wind.Speed.Metric.Value} km/h</p>
             <p>Precipitation in last 3 hours: {props.data.PrecipitationSummary.Past3Hours.Metric.Value} mm</p>
