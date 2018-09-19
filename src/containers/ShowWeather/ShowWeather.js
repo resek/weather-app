@@ -40,7 +40,7 @@ class ShowWeather extends Component {
             const inputText = input.toLowerCase();
 
             //accweather autocomplete location API
-            axios.get("https://weather-app-9d9b0.firebaseio.com/autocomplete.json")
+            axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&q=${inputText}`)
             .then(response => {
                 this.setState({cityOptions: response.data, selectLoading: false}); 
             })
@@ -64,8 +64,8 @@ class ShowWeather extends Component {
             
             //get weather data for choosen city
             axios.all([
-                axios.get("https://weather-app-9d9b0.firebaseio.com/current.json"),
-                axios.get("https://weather-app-9d9b0.firebaseio.com/forecast.json")
+                axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${cityId}?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&details=true`),
+                axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityId}?apikey=69hmmQqCJv4k5dXY4r9rwjjJfzHslQUi&details=true&metric=true`)
             ])
             .then(response => {                
                 this.setState({
