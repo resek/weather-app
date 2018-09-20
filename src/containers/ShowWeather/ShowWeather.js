@@ -40,7 +40,7 @@ class ShowWeather extends Component {
             const inputText = input.toLowerCase();
 
             //accweather autocomplete location API
-            axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=nNwKoB0dhQpFHVCsFSflW0bIhvrA4jYX%20&q=${inputText}`)
+            axios.get(`https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=nNwKoB0dhQpFHVCsFSflW0bIhvrA4jYX%20&q=${inputText}`)
             .then(response => {
                 this.setState({cityOptions: response.data, selectLoading: false}); 
             })
@@ -64,8 +64,8 @@ class ShowWeather extends Component {
             
             //get weather data for choosen city
             axios.all([
-                axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${cityId}?apikey=nNwKoB0dhQpFHVCsFSflW0bIhvrA4jYX%20&details=true`),
-                axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityId}?apikey=nNwKoB0dhQpFHVCsFSflW0bIhvrA4jYX%20&details=true&metric=true`)
+                axios.get(`https://dataservice.accuweather.com/currentconditions/v1/${cityId}?apikey=nNwKoB0dhQpFHVCsFSflW0bIhvrA4jYX%20&details=true`),
+                axios.get(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityId}?apikey=nNwKoB0dhQpFHVCsFSflW0bIhvrA4jYX%20&details=true&metric=true`)
             ])
             .then(response => {                
                 this.setState({
