@@ -3,9 +3,7 @@ import React from "react";
 import classes from "./PartOfDay.css";
 
 const Day = (props) => {
-
-    console.log(props);
-
+    
     return (
         <div className={classes.Day}>
             <p>{props.partOfDay}</p>
