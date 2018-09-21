@@ -27,7 +27,8 @@
     color: #253858;
     font-weight: bold;
     -webkit-transition: border 0.1s;
-    transition: border 0.1s 
+    transition: border 0.1s;
+    outline: none; 
 }
 
 .NavigationItems a:hover,
